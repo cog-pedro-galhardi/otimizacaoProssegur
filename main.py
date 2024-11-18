@@ -132,7 +132,7 @@ if st.button("Processar Dados"):
             progress.progress(progress_contador / total_etapas)
 
             df_weights = calcular_pesos(df_cleaned)
-            st.write("Dados Processados(5 primeiras colunas:)")
+            st.write("Dados do Histórico(5 primeiras colunas:)")
             st.write(df_cleaned.head())
 
             progress_contador += 1
@@ -170,7 +170,7 @@ if st.button("Processar Dados"):
             progress_contador += 1
             progress.progress(progress_contador / total_etapas)
 
-            st.write("Dados Filtrados(Primeiras 5 linhas)")
+            st.write("Resultados Finais(Primeiras 5 linhas)")
             st.write(df.head())
             st.success("Processamento concluído!")
 
