@@ -93,7 +93,24 @@ previsao_data_final = col4.date_input("Data Final da Previsão", value=datetime.
 qt_monthly_prediction = ((previsao_data_final - previsao_data_inicial).days // 7) + 2
 
 # Tamanho da janela
-window = st.number_input("Tamanho da Janela do Modelo", min_value=1, max_value=100)
+st.markdown(
+    "<h2 style='color: #007BFF;'>Tamanho da Janela do Modelo</h2>",
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    "<p style='color:#007BFF '>Representa o número de semanas do histórico usado para prever cada semana futura, ajustando-se dinamicamente conforme novas semanas são previstas.</p>",
+    unsafe_allow_html=True,
+)
+# Tamanho da janela
+window = st.number_input(
+    " Tamanho da Janela do Modelo", min_value=1, max_value=100, value=5
+)
+
+st.markdown(
+    "<p style='color:#007BFF '>O cálculo da previsão utiliza o histórico informado e projeta o mesmo período para o futuro.</p>",
+    unsafe_allow_html=True,
+)
 
 # Botão para processar
 if st.button("Processar Dados"):
