@@ -30,14 +30,16 @@ class model:
         df_teste = df_aggregate[
             ["dia_da_semana", "CODIGO FILIAL", "TIPO VEÍCULO", "Category"]
         ].drop_duplicates()
+
         last_date_ofc = df_aggregate["DATA COMPETÊNCIA"].max()
-        last_date = df_aggregate["DATA COMPETÊNCIA"].max()
+        last_date = last_date_ofc
         last_sat = last_date - timedelta(days=1)
         last_fri = last_date - timedelta(days=2)
         last_thur = last_date - timedelta(days=3)
         last_wed = last_date - timedelta(days=4)
         last_tue = last_date - timedelta(days=5)
         last_mon = last_date - timedelta(days=6)
+
         for _, row in df_teste.iterrows():
             for i in range(1, self.qt):
                 df_aggregate_loop = (
@@ -50,174 +52,71 @@ class model:
                     .dropna()
                     .tail(self.window)
                 )
+
                 if row["dia_da_semana"] == "Segunda":
                     x = last_mon
-                    df_prediction = pd.DataFrame(
-                        [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_mon = last_mon + timedelta(days=7)
+                    new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Terça":
                     x = last_tue
-                    df_prediction = pd.DataFrame(
-                        [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_tue = last_tue + timedelta(days=7)
+                    new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Quarta":
                     x = last_wed
-                    df_prediction = pd.DataFrame(
-                        [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_wed = last_wed + timedelta(days=7)
+                    new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Quinta":
                     x = last_thur
-                    df_prediction = pd.DataFrame(
-                        [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_thur = last_thur + timedelta(days=7)
+                    new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Sexta":
                     x = last_fri
-                    df_prediction = pd.DataFrame(
-                        [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_fri = last_fri + timedelta(days=7)
-                elif row["dia_da_semana"] == "Sábado":
+                    new_date = x + timedelta(days=7)
+                elif row["dia_da_semana"] == "Sabado":
                     x = last_sat
-                    df_prediction = pd.DataFrame(
-                        [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_sat = last_sat + timedelta(days=7)
+                    new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Domingo":
                     x = last_date
-                    df_prediction = pd.DataFrame(
+                    new_date = x + timedelta(days=7)
+
+                # recalcula o dia da semana correto com a nova data
+                day_of_week = new_date.strftime("%A")
+
+                # cria o dataframe com as datas corretas
+                df_prediction = pd.DataFrame(
+                    [
                         [
-                            [
-                                ((x) + (timedelta(days=7))),
-                                row["dia_da_semana"],
-                                row["CODIGO FILIAL"],
-                                row["TIPO VEÍCULO"],
-                                row["Category"],
-                                df_aggregate_loop.mean(),
-                            ]
-                        ],
-                        columns=[
-                            "DATA COMPETÊNCIA",
-                            "dia_da_semana",
-                            "CODIGO FILIAL",
-                            "TIPO VEÍCULO",
-                            "Category",
-                            "count",
-                        ],
-                    )
-                    df_aggregate = pd.concat([df_aggregate, df_prediction])
-                    last_date = last_date + timedelta(days=7)
+                            new_date,
+                            day_of_week,
+                            row["CODIGO FILIAL"],
+                            row["TIPO VEÍCULO"],
+                            row["Category"],
+                            df_aggregate_loop.mean(),
+                        ]
+                    ],
+                    columns=[
+                        "DATA COMPETÊNCIA",
+                        "dia_da_semana",
+                        "CODIGO FILIAL",
+                        "TIPO VEÍCULO",
+                        "Category",
+                        "count",
+                    ],
+                )
+                df_aggregate = pd.concat([df_aggregate, df_prediction])
+
+                # atualiza as datas de referencia
+                if row["dia_da_semana"] == "Segunda":
+                    last_mon = new_date
+                elif row["dia_da_semana"] == "Terça":
+                    last_tue = new_date
+                elif row["dia_da_semana"] == "Quarta":
+                    last_wed = new_date
+                elif row["dia_da_semana"] == "Quinta":
+                    last_thur = new_date
+                elif row["dia_da_semana"] == "Sexta":
+                    last_fri = new_date
+                elif row["dia_da_semana"] == "Sabado":
+                    last_sat = new_date
+                elif row["dia_da_semana"] == "Domingo":
+                    last_date = new_date
+
             last_date = last_date_ofc
             last_sat = last_date - timedelta(days=1)
             last_fri = last_date - timedelta(days=2)
@@ -225,8 +124,10 @@ class model:
             last_wed = last_date - timedelta(days=4)
             last_tue = last_date - timedelta(days=5)
             last_mon = last_date - timedelta(days=6)
+
             df_predictions = df_aggregate.loc[
                 (df_aggregate["DATA COMPETÊNCIA"] >= self.start_date)
                 & (df_aggregate["DATA COMPETÊNCIA"] <= self.end_date)
             ]
+
         return df_predictions
