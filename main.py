@@ -75,6 +75,10 @@ df_feriados_file_path = st.file_uploader("", type="csv")
 st.markdown(
     "<h2 style='color: #007BFF;'>Período de Histórico</h2>", unsafe_allow_html=True
 )
+st.markdown(
+    "<p style='color:#007BFF '>A data inicial e final precisam ser compátiveis com a data do histório CSV.</p>",
+    unsafe_allow_html=True,
+)
 col1, col2 = st.columns(2)
 historico_data_inicial = col1.date_input("Data Inicial", value=datetime.today())
 historico_data_final = col2.date_input("Data Final", value=datetime.today())
