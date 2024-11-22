@@ -14,6 +14,18 @@ class model:
         self.start_date = pd.to_datetime(self.start_date, format="%d/%m/%Y")
         self.end_date = pd.to_datetime(self.end_date, format="%d/%m/%Y")
         self.df = self.df.loc[self.df["is_feriado"] == 0]
+
+        # Dicionário para traduzir os dias da semana
+        dias_em_portugues = {
+            "Monday": "Segunda",
+            "Tuesday": "Terça",
+            "Wednesday": "Quarta",
+            "Thursday": "Quinta",
+            "Friday": "Sexta",
+            "Saturday": "Sábado",
+            "Sunday": "Domingo",
+        }
+
         df_aggregate = (
             self.df.groupby(
                 [
@@ -75,21 +87,10 @@ class model:
                     x = last_date
                     new_date = x + timedelta(days=7)
 
-                # recalcula o dia da semana correto com a nova data
-                # dias_em_portugues = {
-                #     "Monday": "Segunda",
-                #     "Tuesday": "Terça",
-                #     "Wednesday": "Quarta",
-                #     "Thursday": "Quinta",
-                #     "Friday": "Sexta",
-                #     "Saturday": "Sábado",
-                #     "Sunday": "Domingo",
-                # }
-                # day_of_week = dias_em_portugues[new_date.strftime("%A")]
+                # Traduz o nome do dia da semana
+                day_of_week = dias_em_portugues[new_date.strftime("%A")]
 
-                day_of_week = new_date.strftime("%A")
-
-                # cria o dataframe com as datas corretas
+                # Cria o dataframe com as previsões
                 df_prediction = pd.DataFrame(
                     [
                         [
@@ -112,7 +113,7 @@ class model:
                 )
                 df_aggregate = pd.concat([df_aggregate, df_prediction])
 
-                # atualiza as datas de referencia
+                # Atualiza as datas de referência
                 if row["dia_da_semana"] == "Segunda":
                     last_mon = new_date
                 elif row["dia_da_semana"] == "Terça":
