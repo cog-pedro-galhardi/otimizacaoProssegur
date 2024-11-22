@@ -75,10 +75,6 @@ df_feriados_file_path = st.file_uploader("", type="csv")
 st.markdown(
     "<h2 style='color: #007BFF;'>Período de Histórico</h2>", unsafe_allow_html=True
 )
-st.markdown(
-    "<p style='color:#007BFF '>A data inicial e final precisam ser compátiveis com a data do histório CSV.</p>",
-    unsafe_allow_html=True,
-)
 col1, col2 = st.columns(2)
 historico_data_inicial = col1.date_input("Data Inicial", value=datetime.today())
 historico_data_final = col2.date_input("Data Final", value=datetime.today())
@@ -96,7 +92,7 @@ previsao_data_final = col4.date_input("Data Final da Previsão", value=datetime.
 # Calculando a data da previsao para semanas
 qt_monthly_prediction = ((previsao_data_final - previsao_data_inicial).days // 7) + 2
 
-# Tamanho da janela
+
 st.markdown(
     "<h2 style='color: #007BFF;'>Tamanho da Janela do Modelo</h2>",
     unsafe_allow_html=True,
@@ -115,7 +111,6 @@ st.markdown(
     "<p style='color:#007BFF '>O cálculo da previsão utiliza o histórico informado e projeta o mesmo período para o futuro.</p>",
     unsafe_allow_html=True,
 )
-
 # Botão para processar
 if st.button("Processar Dados"):
     if df_file_path is not None and df_feriados_file_path is not None:
@@ -153,7 +148,7 @@ if st.button("Processar Dados"):
             progress.progress(progress_contador / total_etapas)
 
             df_weights = calcular_pesos(df_cleaned)
-            st.write("Dados do Histórico(primeiras 5 linhas:)")
+            st.write("Dados do Histórico(5 primeiras colunas:)")
             st.write(df_cleaned.head())
 
             progress_contador += 1
@@ -191,8 +186,8 @@ if st.button("Processar Dados"):
             progress_contador += 1
             progress.progress(progress_contador / total_etapas)
 
-            st.write("Resultados Finais(primeiras 5 linhas)")
-            st.write(df.head())
+            st.write("Resultados Finais(Primeiras 5 linhas)")
+            st.write(df)
             st.success("Processamento concluído!")
 
             # Armazenar no estado
@@ -216,10 +211,10 @@ if "df" in st.session_state:
         "Selecione o(s) Tipo(s) de Veículo", df["TIPO VEÍCULO"].unique()
     )
     faixa_horario = st.multiselect(
-        "Selecione a(s) Faixa(s) de Horário", df["Category"].unique()
+        "Selecione a(s) Faixa(s) de Horário", df["JORNADA"].unique()
     )
     dia_da_semana = st.multiselect(
-        "Selecione o(s) Dia(s) da Semana", df["dia_da_semana"].unique()
+        "Selecione o(s) Dia(s) da Semana", df["DIA_DA_SEMANA"].unique()
     )
 
     # Filtrar os dados
@@ -229,19 +224,19 @@ if "df" in st.session_state:
     if tipo_veiculo:
         df_filtrado = df_filtrado[df_filtrado["TIPO VEÍCULO"].isin(tipo_veiculo)]
     if faixa_horario:
-        df_filtrado = df_filtrado[df_filtrado["Category"].isin(faixa_horario)]
+        df_filtrado = df_filtrado[df_filtrado["JORNADA"].isin(faixa_horario)]
     if dia_da_semana:
-        df_filtrado = df_filtrado[df_filtrado["dia_da_semana"].isin(dia_da_semana)]
+        df_filtrado = df_filtrado[df_filtrado["DIA_DA_SEMANA"].isin(dia_da_semana)]
 
     # Gráfico
     df_grouped = (
-        df_filtrado.groupby("DATA COMPETÊNCIA").agg({"count": "sum"}).reset_index()
+        df_filtrado.groupby("DATA COMPETÊNCIA").agg({"QNT_ROTAS": "sum"}).reset_index()
     )
 
     plt.figure(figsize=(10, 6))
     plt.plot(
         df_grouped["DATA COMPETÊNCIA"],
-        df_grouped["count"],
+        df_grouped["QNT_ROTAS"],
         label="Previsão de Veículos",
         marker="o",
     )
