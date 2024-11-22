@@ -1,5 +1,9 @@
 from datetime import datetime, timedelta
 import pandas as pd
+import locale
+
+
+locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
 
 
 class model:
@@ -68,7 +72,7 @@ class model:
                 elif row["dia_da_semana"] == "Sexta":
                     x = last_fri
                     new_date = x + timedelta(days=7)
-                elif row["dia_da_semana"] == "Sabado":
+                elif row["dia_da_semana"] == "Sábado":
                     x = last_sat
                     new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Domingo":
@@ -76,6 +80,17 @@ class model:
                     new_date = x + timedelta(days=7)
 
                 # recalcula o dia da semana correto com a nova data
+                # dias_em_portugues = {
+                #     "Monday": "Segunda",
+                #     "Tuesday": "Terça",
+                #     "Wednesday": "Quarta",
+                #     "Thursday": "Quinta",
+                #     "Friday": "Sexta",
+                #     "Saturday": "Sábado",
+                #     "Sunday": "Domingo",
+                # }
+                # day_of_week = dias_em_portugues[new_date.strftime("%A")]
+
                 day_of_week = new_date.strftime("%A")
 
                 # cria o dataframe com as datas corretas
@@ -112,7 +127,7 @@ class model:
                     last_thur = new_date
                 elif row["dia_da_semana"] == "Sexta":
                     last_fri = new_date
-                elif row["dia_da_semana"] == "Sabado":
+                elif row["dia_da_semana"] == "Sábado":
                     last_sat = new_date
                 elif row["dia_da_semana"] == "Domingo":
                     last_date = new_date
