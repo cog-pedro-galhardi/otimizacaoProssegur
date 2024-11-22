@@ -187,7 +187,7 @@ if st.button("Processar Dados"):
             progress.progress(progress_contador / total_etapas)
 
             st.write("Resultados Finais(Primeiras 5 linhas)")
-            st.write(df)
+            st.write(df.head())
             st.success("Processamento concluído!")
 
             # Armazenar no estado
