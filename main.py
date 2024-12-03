@@ -48,7 +48,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown(
-    "<h1 style='color: #007BFF;'>Previsão de Dados</h1>", unsafe_allow_html=True
+    "<h1 style='color: #007BFF;'>Modelo de Previsão e Demanda</h1>", unsafe_allow_html=True
 )
 
 # sidebar para o menu de navegação
@@ -90,7 +90,7 @@ def carregar_arquivo(file):
 
 # Carregar os dados
 st.markdown(
-    "<h5 style='color: #007BFF;'>Por favor, selecione o arquivo de histórico de dados no formato CSV.</h5>",
+    "<h5 style='color: #007BFF;'>Selecione o arquivo de histórico de dados no formato CSV.</h5>",
     unsafe_allow_html=True,
 )
 df_file_path = st.file_uploader(
@@ -101,7 +101,7 @@ df_file_path = st.file_uploader(
 )
 
 st.markdown(
-    "<h5 style='color: #007BFF;'>Por favor, selecione o arquivo de feriados no formato CSV.</h5>",
+    "<h5 style='color: #007BFF;'>Selecione o arquivo de feriados no formato CSV.</h5>",
     unsafe_allow_html=True,
 )
 df_feriados_file_path = st.file_uploader(
@@ -341,3 +341,5 @@ if "df" in st.session_state:
         "Baixar CSV com os Resultados",
     )
     st.markdown(download_link, unsafe_allow_html=True)
+    st.success("✅ Faça o download e vá para o modelo de otimização no canto esquerdo.")
+
