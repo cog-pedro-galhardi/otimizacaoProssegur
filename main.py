@@ -135,6 +135,7 @@ st.markdown(f"**Número de semanas de previsão calculado:** {qt_monthly_predict
 
 
 # Tamanho da janela do modelo
+
 st.markdown(
     "<h2 style='color: #007BFF;'>Tamanho da Janela do Modelo</h2>",
     unsafe_allow_html=True,
@@ -154,7 +155,6 @@ st.markdown(
     "<p style='color:#007BFF '>O cálculo da previsão utiliza o histórico informado e projeta o mesmo período para o futuro.</p>",
     unsafe_allow_html=True,
 )
-
 # Botão para processar
 if st.button("Processar Dados"):
     if df_file_path is not None and df_feriados_file_path is not None:

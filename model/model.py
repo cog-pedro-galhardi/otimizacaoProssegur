@@ -15,7 +15,6 @@ class model:
         self.end_date = pd.to_datetime(self.end_date, format="%d/%m/%Y")
         self.df = self.df.loc[self.df["is_feriado"] == 0]
 
-        # dicionario para traduzir os dias da semana
         dias_em_portugues = {
             "Monday": "Segunda",
             "Tuesday": "Terça",
@@ -89,8 +88,10 @@ class model:
 
                 # traduz o nome do dia da semana
                 day_of_week = dias_em_portugues[new_date.strftime("%A")]
-
                 # dataframe com as previsoes
+                # Traduz o nome do dia da semana
+                day_of_week = dias_em_portugues[new_date.strftime("%A")]
+                # Cria o dataframe com as previsões
                 df_prediction = pd.DataFrame(
                     [
                         [
@@ -113,7 +114,7 @@ class model:
                 )
                 df_aggregate = pd.concat([df_aggregate, df_prediction])
 
-                # atualiza as datas de referencia
+                # Atualiza as datas de referência
                 if row["dia_da_semana"] == "Segunda":
                     last_mon = new_date
                 elif row["dia_da_semana"] == "Terça":
