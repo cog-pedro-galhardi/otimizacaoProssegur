@@ -78,7 +78,7 @@ elif menu_option == "Modelo de Otimização":
 elif menu_option == "Modelo de Simulação":
     st.sidebar.write("Redirecionando para Modelo de Simulação")
     st.sidebar.markdown(
-        "[Clique aqui](https://sua-aplicacao-streamlit-cloud.com)",
+        "[Clique aqui](http://54.211.109.72:8502/)",
         unsafe_allow_html=True,
     )
 
