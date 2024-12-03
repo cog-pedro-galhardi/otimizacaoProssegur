@@ -14,3 +14,5 @@ EXPOSE 8501
 
 # Comando para iniciar o Streamlit
 CMD ["streamlit", "run", "main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+
+

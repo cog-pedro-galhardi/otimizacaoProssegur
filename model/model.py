@@ -14,6 +14,18 @@ class model:
         self.start_date = pd.to_datetime(self.start_date, format="%d/%m/%Y")
         self.end_date = pd.to_datetime(self.end_date, format="%d/%m/%Y")
         self.df = self.df.loc[self.df["is_feriado"] == 0]
+
+        # dicionario para traduzir os dias da semana
+        dias_em_portugues = {
+            "Monday": "Segunda",
+            "Tuesday": "Terça",
+            "Wednesday": "Quarta",
+            "Thursday": "Quinta",
+            "Friday": "Sexta",
+            "Saturday": "Sábado",
+            "Sunday": "Domingo",
+        }
+
         df_aggregate = (
             self.df.groupby(
                 [
@@ -68,17 +80,17 @@ class model:
                 elif row["dia_da_semana"] == "Sexta":
                     x = last_fri
                     new_date = x + timedelta(days=7)
-                elif row["dia_da_semana"] == "Sabado":
+                elif row["dia_da_semana"] == "Sábado":
                     x = last_sat
                     new_date = x + timedelta(days=7)
                 elif row["dia_da_semana"] == "Domingo":
                     x = last_date
                     new_date = x + timedelta(days=7)
 
-                # recalcula o dia da semana correto com a nova data
-                day_of_week = new_date.strftime("%A")
+                # traduz o nome do dia da semana
+                day_of_week = dias_em_portugues[new_date.strftime("%A")]
 
-                # cria o dataframe com as datas corretas
+                # dataframe com as previsoes
                 df_prediction = pd.DataFrame(
                     [
                         [
@@ -112,7 +124,7 @@ class model:
                     last_thur = new_date
                 elif row["dia_da_semana"] == "Sexta":
                     last_fri = new_date
-                elif row["dia_da_semana"] == "Sabado":
+                elif row["dia_da_semana"] == "Sábado":
                     last_sat = new_date
                 elif row["dia_da_semana"] == "Domingo":
                     last_date = new_date

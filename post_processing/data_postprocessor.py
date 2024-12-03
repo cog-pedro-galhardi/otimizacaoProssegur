@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 
 
 class DataPostprocessor:
@@ -65,5 +66,8 @@ class DataPostprocessor:
         self.df.drop(
             ["UF", "NOME FILIAL", "is_feriado", "weight"], axis=1, inplace=True
         )
+        self.df = self.df.rename(columns={"dia_da_semana": "DIA_DA_SEMANA"})
+        self.df = self.df.rename(columns={"Category": "JORNADA"})
+        self.df = self.df.rename(columns={"count": "QNT_ROTAS"})
         self.df.to_csv("data/predictions.csv")
         return self.df

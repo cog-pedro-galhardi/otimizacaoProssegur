@@ -7,6 +7,29 @@ class DataPreprocessor:
         self.df_feriados = pd.read_csv(df_feriados_file_path)
         self.data_inicio = data_inicio
         self.data_fim = data_fim
+        self.padronizar_colunas()
+
+    def padronizar_colunas(self):
+
+        column_mappings = {
+            "DATA COMPETÊNCIA": ["DATA_COMPETÊNCIA", "DATA COMPETÊNCIA"],
+            "NOME FILIAL": ["NOME_FILIAL", "NOME_FILIAL1"],
+            "CÓD CLIENTE": ["CÓD_CLIENTE"],
+            "NOME CLIENTE": ["NOME_CLIENTE"],
+            "TIPO VEÍCULO": ["TIPO_VEÍCULO"],
+            "TOTAL HVG EM NUMERO": ["TOTAL_HVG_EM_NUMERO"],
+            "TOTAL HVG EM PESO": ["TOTAL_HVG_EM_PESO"],
+            "TOTAL HVG EM VOLUME": ["TOTAL_HVG_EM_VOLUME"],
+            "TOTAL HVG EM CUBATURA": ["TOTAL_HVG_EM_CUBATURA"],
+            "CODIGO FILIAL":["CODIGO_FILIAL"],
+            # Adicione mais mapeamentos aqui conforme necessário
+        }
+
+        for padrao, alternativas in column_mappings.items():
+            for alt in alternativas:
+                if alt in self.df.columns:
+                    self.df.rename(columns={alt: padrao}, inplace=True)
+                    break
 
     def filter_historico(self, df, data_inicio_historico, data_fim_historico):
         data_inicio_historico = pd.to_datetime(data_inicio_historico, format="%d/%m/%Y")
@@ -54,7 +77,7 @@ class DataPreprocessor:
                 return "greater than 14"
 
         df["TOTAL HVG EM NUMERO"] = (
-            df["TOTAL HVG EM NUMERO"].str.replace(",", ".").astype(float)
+            df["TOTAL HVG EM NUMERO"].astype(str).str.replace(",", ".").astype(float)
         )
         df["Category"] = df.apply(categorize, axis=1)
 
