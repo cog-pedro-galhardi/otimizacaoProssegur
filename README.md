@@ -1,4 +1,4 @@
-# Streamlit Application
+# Modelo de Previsão e Demanda
 
 Este projeto utiliza o Streamlit para criar uma interface interativa. Siga as instruções abaixo para configurar e rodar o projeto em sua máquina.
 
@@ -41,7 +41,7 @@ Execute o seguinte comando para rodar a aplicação Streamlit:
 
 streamlit run main.py
 Acesse a aplicação
-Após executar o comando acima, o Streamlit exibirá um link (geralmente http://localhost:8501) no terminal. Clique no link ou copie e cole no navegador para acessar a aplicação.
+Após executar o comando acima, o Streamlit exibirá um link (http://localhost:8501) no terminal. Clique no link ou copie e cole no navegador para acessar a aplicação.
 
 🛠️ Configuração Adicional
 Se sua aplicação precisar de arquivos de entrada (como CSV, Excel, etc.), certifique-se de adicioná-los ao diretório apropriado antes de iniciar.
