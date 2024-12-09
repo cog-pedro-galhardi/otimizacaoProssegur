@@ -60,6 +60,7 @@ menu_option = st.sidebar.radio(
         "Modelo de Otimização",
         "Modelo de Simulação",
     ],
+
 )
 
 if menu_option == "Previsão de Demanda":
