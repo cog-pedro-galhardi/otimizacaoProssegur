@@ -72,13 +72,13 @@ if menu_option == "Previsão de Demanda":
 elif menu_option == "Modelo de Otimização":
     st.sidebar.write("Redirecionando para Modelo de Otimização")
     st.sidebar.markdown(
-        "[Clique aqui](http://54.211.109.72:8501/)", unsafe_allow_html=True
+        "[Clique aqui](http://54.211.109.72/)", unsafe_allow_html=True
     )
 
 elif menu_option == "Modelo de Simulação":
     st.sidebar.write("Redirecionando para Modelo de Simulação")
     st.sidebar.markdown(
-        "[Clique aqui](http://54.211.109.72:8502/)",
+        "[Clique aqui](http://54.211.109.72:8080/)",
         unsafe_allow_html=True,
     )
 
