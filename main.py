@@ -49,7 +49,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown(
-    "<h1 style='color: #007BFF;'>Previsão de Dados</h1>", unsafe_allow_html=True
+    "<h1 style='color: #007BFF;'>Modelo Previsão de Demanda</h1>", unsafe_allow_html=True
 )
 # sidebar para o menu de navegação
 st.sidebar.title("Menu de Navegação")
@@ -73,13 +73,13 @@ if menu_option == "Previsão de Demanda":
 elif menu_option == "Modelo de Otimização":
     st.sidebar.write("Redirecionando para Modelo de Otimização")
     st.sidebar.markdown(
-        "[Clique aqui](http://54.211.109.72:8501/)", unsafe_allow_html=True
+        "[Clique aqui](http://54.211.109.72/)", unsafe_allow_html=True
     )
 
 elif menu_option == "Modelo de Simulação":
     st.sidebar.write("Redirecionando para Modelo de Simulação")
     st.sidebar.markdown(
-        "[Clique aqui](http://54.211.109.72:8502/)",
+        "[Clique aqui](http://54.211.109.72:8080/)",
         unsafe_allow_html=True,
     )
 
