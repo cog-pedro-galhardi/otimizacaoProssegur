@@ -16,30 +16,35 @@ Certifique-se de ter o seguinte instalado em sua máquina:
    ```bash
    git clone git clone git@bitbucket.org:cog-ai/pro-ondemand.git
 Navegue para o diretório do projeto
-
+   ```
 cd nome-do-repositorio
-Crie um ambiente virtual (opcional, mas recomendado)
+   ```
+Crie um ambiente virtual
 
+```
 python -m venv venv
+```
 Ative o ambiente virtual:
 
 Windows:
-
+```
 .\venv\Scripts\activate
 Linux/Mac:
 bash
 Copiar código
 source venv/bin/activate
+```
 Instale as dependências
 Execute o comando abaixo para instalar os pacotes necessários:
-
-
+```
 pip install -r requirements.txt
+```
 Inicie a aplicação
 Execute o seguinte comando para rodar a aplicação Streamlit:
 
-
+```
 streamlit run main.py
+```
 Acesse a aplicação
 Após executar o comando acima, o Streamlit exibirá um link (http://localhost:8501) no terminal. Clique no link ou copie e cole no navegador para acessar a aplicação.
 
