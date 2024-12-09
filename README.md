@@ -29,9 +29,9 @@ Ative o ambiente virtual:
 Windows:
 ```
 .\venv\Scripts\activate
+```
 Linux/Mac:
-bash
-Copiar código
+```
 source venv/bin/activate
 ```
 Instale as dependências
@@ -47,15 +47,3 @@ streamlit run main.py
 ```
 Acesse a aplicação
 Após executar o comando acima, o Streamlit exibirá um link (http://localhost:8501) no terminal. Clique no link ou copie e cole no navegador para acessar a aplicação.
-
-🛠️ Configuração Adicional
-Se sua aplicação precisar de arquivos de entrada (como CSV, Excel, etc.), certifique-se de adicioná-los ao diretório apropriado antes de iniciar.
-
-📂 Estrutura do Projeto
-feature/pro-previsao-streamlit/
-├── main.py               # Arquivo principal da aplicação Streamlit
-├── demanda.py            # Funções auxiliares de demanda
-├── requirements.txt      # Dependências do projeto
-├── README.md             # Este arquivo
-├── assets/               # (Opcional) Diretório para arquivos estáticos (imagens, etc.)
-└── data/                 # Diretório para arquivos de entrada/saída
