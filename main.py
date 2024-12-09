@@ -49,7 +49,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 st.markdown(
-    "<h1 style='color: #007BFF;'>Previsão de Dados</h1>", unsafe_allow_html=True
+    "<h1 style='color: #007BFF;'>Modelo Previsão de Demanda</h1>", unsafe_allow_html=True
 )
 # sidebar para o menu de navegação
 st.sidebar.title("Menu de Navegação")
