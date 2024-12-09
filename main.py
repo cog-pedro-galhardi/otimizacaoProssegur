@@ -51,6 +51,36 @@ st.markdown(
 st.markdown(
     "<h1 style='color: #007BFF;'>Previsão de Dados</h1>", unsafe_allow_html=True
 )
+# sidebar para o menu de navegação
+st.sidebar.title("Menu de Navegação")
+menu_option = st.sidebar.radio(
+    "Navegue para:",
+    [
+        "Previsão de Demanda",
+        "Modelo de Otimização",
+        "Modelo de Simulação",
+    ],
+)
+
+if menu_option == "Previsão de Demanda":
+    st.sidebar.write("Redirecionando para Previsão de Demanda ")
+    st.sidebar.markdown(
+        "[Clique aqui](https://prossegurprevisao-cognitivo.streamlit.app/)",
+        unsafe_allow_html=True,
+    )
+
+elif menu_option == "Modelo de Otimização":
+    st.sidebar.write("Redirecionando para Modelo de Otimização")
+    st.sidebar.markdown(
+        "[Clique aqui](http://54.211.109.72:8501/)", unsafe_allow_html=True
+    )
+
+elif menu_option == "Modelo de Simulação":
+    st.sidebar.write("Redirecionando para Modelo de Simulação")
+    st.sidebar.markdown(
+        "[Clique aqui](http://54.211.109.72:8502/)",
+        unsafe_allow_html=True,
+    )
 
 
 # Salvando os arquivos em cache
