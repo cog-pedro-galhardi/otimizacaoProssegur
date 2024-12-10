@@ -215,13 +215,20 @@ if st.button("Processar Dados"):
         # Ajuste de faixas
         predictions = adjust_prediction_journey(predictions_daily, df)
 
+        df = predictions.loc[
+            (predictions["data"].dt.date >= previsao_data_inicial)
+            & (predictions["data"].dt.date <= previsao_data_final)
+        ]
+        df["forecast_faixa"] = df["forecast_faixa"].map(
+            lambda value: int(round(value, 0))
+        )
+        st.write(df.head())
+
         # save file
         predictions_daily.to_csv("data/predictions_daily.csv", index=False)
         predictions.to_csv("data/predictions_faixa.csv", index=False)
-        df_save = adjust_output(predictions)
+        df_save = adjust_output(df)
         df_save.to_csv("data/predictions.csv", index=False)
-
-        st.success("Processamento concluído!")
 
         min_date = pd.to_datetime(historico_data_inicial)
         max_date = pd.to_datetime(previsao_data_final)
@@ -230,10 +237,12 @@ if st.button("Processar Dados"):
         ]
 
         st.write("Resultados Finais (5 Primeiras linhas):")
-        st.write(predictions.head())
+        st.write(df.head())
+        st.success("Processamento concluído!")
 
         # Armazenar no estado
         st.session_state["df"] = df_final
+
 
     # except Exception as e:
     # st.error(f"Ocorreu um erro: {e}")
