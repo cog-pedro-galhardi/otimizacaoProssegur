@@ -222,7 +222,6 @@ if st.button("Processar Dados"):
         df["forecast_faixa"] = df["forecast_faixa"].map(
             lambda value: int(round(value, 0))
         )
-        st.write(df.head())
 
         # save file
         predictions_daily.to_csv("data/predictions_daily.csv", index=False)
