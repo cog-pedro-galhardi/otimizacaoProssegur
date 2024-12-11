@@ -282,6 +282,8 @@ if "df" in st.session_state:
         df_filtrado = df_filtrado[df_filtrado["dia_semana"].isin(dia_da_semana)]
 
     # Gráfico
+    df_filtrado["forecast_faixa"] = df_filtrado["forecast_faixa"].round()
+
     df_grouped = (
         df_filtrado.groupby("data")
         .agg({"forecast_faixa": "sum", "demanda": "sum"})
